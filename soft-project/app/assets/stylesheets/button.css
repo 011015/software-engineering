@@ -1,0 +1,31 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+.show-button, .submit-button {
+    display: inline-block;
+    height: 24px;
+    font: 14px "微软雅黑", Arial, Helvetica, sans-serif;
+    padding: 0 10px;
+    background-color: #fff;
+    border: 1px solid #e3873e;
+    border-radius: 12px;
+    color: #e3873e;
+    box-sizing: border-box;
+    cursor: pointer;
+    line-height: 24px;
+}
+
+.button-active, .show-button:hover, .submit-button:hover {
+    background-color: #e3873e;
+    color: #fff;
+}
+
+.button {
+    margin-bottom: 10px;
+}
