@@ -2,6 +2,10 @@
 //= link_directory ../stylesheets .css
 //= link_tree ../../javascript .js
 //= link_tree ../../../vendor/javascript .js
-//= link account/style1.css
 //= link_tree ../javascripts .js
+//= link account/style1.css
 //= link account/tip.js
+//= link song/header.css
+//= link song/song_type_index.css
+//= link song/background.css
+//= link song/tip.js

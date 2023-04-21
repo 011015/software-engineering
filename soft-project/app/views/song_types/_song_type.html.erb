@@ -1,0 +1,30 @@
+<div class="main" id="<%= song_type.id %>">
+<h3 class="main-header">
+  <%= image_tag 'icon5.png' %>
+  <span><%= song_type.名称 %></span>
+  <div class="delete" style="padding-bottom:5px; display: inline-block;">
+    <%= button_to "删除", song_type, method: :delete, class: "delete-button", remote: true %>
+  </div>
+</h3>
+<% if false %>
+
+<ul class="main-content clearfix">
+<% song_type.songs.each_with_index do |song, index| %>
+  <% if ((index + 1) % 4 == 0) %>
+    <li class="recommend clear">
+  <% else %>
+    <li class="recommend">
+  <% end %>
+  <a href="<%= song_url(song) %>" class="touch">
+      <div class="touch1"></div>
+      <img src="assets/icon5.png" alt="" class="zoom">
+  </a>
+  <p class="recommend-content"><%= song.名称 %></p>
+  <p class="recommend-content"><%= song.演唱 %> | <%= song.作词 %> | <%= song.作曲 %></p>
+  <p class="recommend-content"><%= song.manipulator.名称 %></p>
+  </li>
+<% end %>
+</ul>
+
+<% end %>
+</div>

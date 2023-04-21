@@ -111,9 +111,9 @@ class ManipulatorsController < ApplicationController
         str += "登录成功！"
         url = ""
         if params[:类型] == "管理员"
-          url = "/manipulators/manager_login"
+          url = "/song_types"
         else
-          url = "/manipulators/user_login"
+          url = "/song_types"
         end
         render json: {"路径": url, "信息": str}
       else
@@ -131,6 +131,19 @@ class ManipulatorsController < ApplicationController
 
   # GET /manipulators/manager_login
   def manager_login
+  end
+
+  # GET /manipulators/logout
+  def logout
+    type = current_manipulatortype
+    session.delete(:current_manipulatortype)
+    session.delete(:current_manipulatorid)
+
+    if type == "管理员"
+      render json: {"路径": "/manipulators/manager_login", "信息": "登出成功！"}
+    else
+      render json: {"路径": "/manipulators/user_login", "信息": "登出成功！"}
+    end
   end
 
   private

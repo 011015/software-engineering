@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_16_140832) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_20_071821) do
   create_table "manipulators", force: :cascade do |t|
     t.string "名称"
     t.string "密码"
@@ -26,6 +26,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_16_140832) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["manipulator_id"], name: "index_pictures_on_manipulator_id"
+  end
+
+  create_table "song_types", force: :cascade do |t|
+    t.string "名称"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "pictures", "manipulators"

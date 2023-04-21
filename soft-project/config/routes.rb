@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :song_types
   root "manipulators#user_register"
   resources :pictures
   resources :manipulators, :only => [:index, :update, :destroy] do
@@ -8,6 +9,7 @@ Rails.application.routes.draw do
       get 'user_login'
       get 'manager_login'
       post 'do_login'
+      get 'logout'
     end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

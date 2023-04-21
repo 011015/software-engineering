@@ -7,7 +7,14 @@ a {
     text-decoration: none;
 }
 
-.show-button, .submit-button {
+button {
+    border: none;
+    outline: none;
+    background-color: rgba(0,0,0,0);
+    cursor: pointer;
+}
+
+.show-button, .submit-button, .new-button, .return-button, .delete-button {
     display: inline-block;
     height: 24px;
     font: 14px "微软雅黑", Arial, Helvetica, sans-serif;
@@ -21,7 +28,8 @@ a {
     line-height: 24px;
 }
 
-.button-active, .show-button:hover, .submit-button:hover {
+.button-active, .show-button:hover, .submit-button:hover, 
+.new-button:hover, .return-button:hover, .delete-button:hover {
     background-color: #e3873e;
     color: #fff;
 }

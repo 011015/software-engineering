@@ -1,9 +1,12 @@
-<% content_for :title do %>
+<% content_for :account_stylesheet do %>
+    <%= stylesheet_link_tag "account/style1", "button", "frame" %>
+<% end %>
+<% content_for :account_title do %>
     <h1>管理员登录</h1>
 <% end %>
 
-<% content_for :content do %>
-    <%= form_with url: do_login_manipulators_path do %>
+<% content_for :account_content do %>
+    <%= form_with url: do_login_manipulators_path, remote: true do %>
         <%= hidden_field_tag(:类型, "管理员") %>
         <div>
             <span class="div1">名称:</span>
@@ -21,14 +24,18 @@
         </div>
     <% end %>
     <% if false %>
-    <div>
-        <%= link_to '返回界面', songs_url, class: "submit2" %>
+    <div style="position: relative;">
+        <%= link_to '返回', songs_url, class: "return-button" %>
     </div>
     <% end %>
 <% end %>
 
-<% content_for :nav do %>
+<% content_for :account_nav do %>
     <%= link_to '用户注册', user_register_manipulators_url, class: "link" %>
     <%= link_to '用户登录', user_login_manipulators_url, class: "link" %>
     <%= link_to '管理员登录', manager_login_manipulators_url, class: "link link-title" %>
+<% end %>
+
+<% content_for :account_javascript do %>
+    <%= javascript_include_tag "jquery.min", "password", "frame", "account/tip" %>
 <% end %>
