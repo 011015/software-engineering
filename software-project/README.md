@@ -1,24 +1,13 @@
-# README
+### 已完成
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- manipulators
+  - 注册
+  - 登录
+  - 登出
+- songs
+  - 创建
+  - 修改
+  - 删除
+- song_types
+  - 创建
+  - 删除
