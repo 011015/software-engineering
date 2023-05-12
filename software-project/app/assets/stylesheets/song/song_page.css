@@ -1,0 +1,20 @@
+.main {
+    width: 1000px;
+    margin: auto;
+}
+
+.song_header {
+    height: 30px;
+    line-height: 30px;
+    padding-bottom: 10px;
+}
+
+.song_header > img {
+    float: left;
+    height: 100%;
+    width: auto;
+}
+
+.song_header > span {
+    margin-left: 5px;
+}

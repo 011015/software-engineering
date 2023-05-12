@@ -1,0 +1,21 @@
+body {
+    box-sizing: border-box;
+    background: url(assets/song/background2.png) no-repeat center;
+    background-size: 100% 100%;
+    position: relative;
+}
+
+.main {
+    width: 1000px;
+    /* margin: 0 auto; */
+    background: rgba(254, 225, 159, 0.4);
+    transform: translate(0,20%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+form {
+    display: inline-block;
+}

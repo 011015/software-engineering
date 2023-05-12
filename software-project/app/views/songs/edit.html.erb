@@ -1,0 +1,30 @@
+<h1>Editing song</h1>
+
+<%= render "form", song: @song %>
+
+<br>
+
+<div>
+  <%= link_to "Show this song", @song %> |
+  <%= link_to "Back to songs", songs_path %>
+</div>
+
+
+<% content_for :account_stylesheet do %>
+  <%= stylesheet_link_tag "song/background" %>
+<% end %>
+
+<% content_for :account_title do %>
+  <h1>修改曲谱</h1>
+<% end %>
+
+<% content_for :account_content do %>
+  <%= render "form", song: @song %>
+  <div style="position: relative;">
+      <%= link_to '返回', songs_path, class: "return-button" %>
+  </div>
+<% end %>
+
+<% content_for :account_javascript do %>
+  <%= javascript_include_tag "tip_default" %>
+<% end %>
