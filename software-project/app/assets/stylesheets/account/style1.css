@@ -97,7 +97,12 @@ label {
     top: 50%;
     transform: translateX(-50%) translateY(-50%);
 }
-
+.back-button {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
 .required {
     color: red;
     margin-right: 3px;

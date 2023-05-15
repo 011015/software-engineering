@@ -1,6 +1,7 @@
 class SongsController < ApplicationController
   layout 'account', only: [:new, :edit]
   before_action :set_song, only: %i[ show edit update destroy ]
+  before_action :authenticate, except: [ :index, :show ]
 
   # GET /songs or /songs.json
   def index
@@ -59,11 +60,11 @@ class SongsController < ApplicationController
 
   # DELETE /songs/1 or /songs/1.json
   def destroy
-    @song.destroy
-
-    respond_to do |format|
-      format.html { redirect_to songs_url, notice: "Song was successfully destroyed." }
-      format.json { head :no_content }
+    id = "song_" + @song.id.to_s
+    if @song.destroy
+      render json: {"路径": "/songs", "信息": "删除成功！", "id": id}
+    else
+      render json: {"路径": "/songs", "信息": "删除失败！"}
     end
   end
 
@@ -77,4 +78,10 @@ class SongsController < ApplicationController
     def song_params
       params.require(:song).permit(:演唱, :作词, :作曲, :名称, song_type_ids: [])
     end
+
+    def authenticate
+      redirect_to user_login_manipulators_url unless current_manipulatorid
+      # render json: {"路径": "/manipulators/user_login", "信息": "请先登录！\r\n"}, status: :bad_request unless current_manipulatorid
+    end
+
 end

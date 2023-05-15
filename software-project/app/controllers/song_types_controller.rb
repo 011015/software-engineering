@@ -1,6 +1,7 @@
 class SongTypesController < ApplicationController
   layout 'account', only: [:new]
   before_action :set_song_type, only: %i[ show edit update destroy ]
+  before_action :authenticate, except: [ :index, :show ]
 
   # GET /song_types or /song_types.json
   def index
@@ -58,9 +59,9 @@ class SongTypesController < ApplicationController
   def destroy
     id = "song_type_" + @song_type.id.to_s
     if @song_type.destroy
-      render json: {"信息": "删除成功！", "id": id}
+      render json: {"路径": "/song_types", "信息": "删除成功！", "id": id}
     else
-      render json: {"信息": "删除失败！"}
+      render json: {"路径": "/song_types", "信息": "删除失败！"}
     end
     # format.html { redirect_to song_types_url, notice: "Song type was successfully destroyed." }
   end
@@ -74,5 +75,9 @@ class SongTypesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def song_type_params
       params.require(:song_type).permit(:名称)
+    end
+
+    def authenticate
+      redirect_to user_login_manipulators_url unless current_manipulatorid
     end
 end

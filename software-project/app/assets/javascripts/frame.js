@@ -45,11 +45,11 @@ var mizhu = new function() {
 		$(".win .w-btn:first").focus();
 	}
 
-	this.confirm = function(title, message, selected) {
+	this.confirm = function(title, message, data, selected) {
 		this._close = function(flag) {
 			if(flag) {
 				$(".win").remove();
-				selected(flag);
+				selected(flag, data);
 			} else {
 				this.close();
 			}

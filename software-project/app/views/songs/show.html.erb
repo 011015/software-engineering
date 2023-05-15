@@ -31,11 +31,17 @@
               <h5>演唱: <%= @song.演唱 %></h5>
               <h5>作词: <%= @song.作词 %></h5>
               <h5>作曲: <%= @song.作曲 %></h5>
-              <% if false %>
-                <h5>类型: <%= @song.song_type.名称 if @song.song_type %></h5>
-                <h5>发布者: <%= @song.manipulator.名称 %></h5>
-              <% end %>
-              <div class="button">
+              <h5>类型: 
+                <% @song.song_types.each_with_index do |song_type, index| %>
+                  <% if index == 0 %>
+                  <%= song_type.名称 %>
+                  <% else %>
+                  , <%= song_type.名称 %>
+                  <% end %>
+                <% end %>
+              </h5>
+              <h5>发布者: <%= @song.manipulator.名称 %></h5>
+              <div class="button delete">
                 <%= link_to "修改", edit_song_path(@song), class: "change-button" %>
                 <%= button_to "删除", @song, method: :delete, class: "delete-button" %>
               </div>
