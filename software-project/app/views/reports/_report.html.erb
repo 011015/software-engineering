@@ -1,0 +1,13 @@
+<td><%= report.内容 %><a href="/songs/<%= report.comment.song.id %>#comment-<%= report.comment.id %>"></a></td>
+<td><%= report.manipulator.名称 %><a href="/songs/<%= report.comment.song.id %>#comment-<%= report.comment.id %>"></a></td>
+<td><%= report.comment.内容 %><a href="/songs/<%= report.comment.song.id %>#comment-<%= report.comment.id %>"></a></td>
+<td>
+  <%= form_with(model: report, remote: true, class: "form-delete") do |form| %>
+    <%= form.hidden_field :状态, value: "已通过" %>
+    <%= form.button "通过", class: "accept" %>
+  <% end %>
+  <%= form_with(model: report, remote: true, class: "form-delete") do |form| %>
+    <%= form.hidden_field :状态, value: "已驳回" %>
+    <%= form.button "驳回", class: "reject" %>
+  <% end %>
+</td>

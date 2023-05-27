@@ -1,0 +1,9 @@
+<%= form_with(model: song_type, remote: true, class: "form-default") do |form| %>
+  <div>
+      <span class="div1"><%= form.label :名称 %>:</span>
+      <div class="div2"><%= form.text_field :名称 %></div>
+  </div>
+  <div style="position: relative;">
+      <%= submit_tag '创建', class: "submit-button" %>
+  </div>
+<% end %>
