@@ -1,0 +1,7 @@
+<div id="image_<%= image.id %>" class="picture">
+    <div class="button">
+    <a href="/assets/<%= image.图片 %>" download class="download-button">下载</a>
+    <%= button_to "删除", [@song, image], method: :delete, remote: true, class: "delete-button", form: {class: "form-delete"} %>
+    </div>
+    <%= image_tag image.图片 %>
+</div>
