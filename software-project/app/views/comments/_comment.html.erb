@@ -1,0 +1,33 @@
+<div class="comment-one" id="comment_<%= comment.id %>">
+  <div class="comment-user clearfix">
+    <div class="comment-user-avatar">
+      <%= image_tag comment.manipulator.头像.图片 %>
+    </div>
+    <div class="comment-user-info">
+      <p class="comment-username"><%= comment.manipulator.名称 %></p>
+      <p class="comment-date"><%= time_ago_in_words(comment.created_at) %></p>
+    </div>
+  </div>
+  <p class="comment-content" id="comment-<%= comment.id %>">
+    <%= comment.内容 %>
+  </p>
+  <div class="button">
+    <%= button_to "删除", [@song, comment], method: :delete, class: "delete-button", remote: true, form: { class: "form-delete" } %>
+    <button class="report-button" value="report-<%= comment.id %>">举报</button>
+  </div>
+
+  <%= form_with model: [@song, comment, Report.new], remote: true, class: "form-default" do |f| %>
+    <div class="comment-block reply-block" id="report-<%= comment.id %>">
+    <div class="input-box">
+        <%= f.text_area :内容, placeholder: "评论内容", maxlength: "500", class: "input-text" %>
+        <div class="face-div"></div>
+        <div class="input-foot">
+            <a class="img-btn" href="javascript:void(0);"></a>
+            <%= f.submit "举报", class: "post-btn" %>
+            <div class="input-tips">还可以输入<span class="tips-word">500</span>字符</div>
+        </div>
+    </div>
+    </div>
+  <% end %>
+
+</div>
