@@ -4,4 +4,6 @@
 
 # 运行
 
-1. `rails s`
+1. `rake db:create`创建数据库。
+2. `rake db:migrate`执行所有未执行的迁移，更新数据库结构。
+3. `rails s`启动服务器。
