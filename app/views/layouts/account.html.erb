@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="shortcut icon" href="/assets/查询.png" type="image/x-icon">
+        <title>曲谱交流平台</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <%= csrf_meta_tags %>
+        <%= csp_meta_tag %>
+        <%= action_cable_meta_tag %>
+        <%= stylesheet_link_tag "account/style1", "button", "frame" %>
+        <%= yield :account_stylesheet %>
+    </head>
+
+  <body>
+    <% if false %>
+        <p style="color: green"><%= notice %></p>
+    <% end %>
+    <div class="main">
+        <div class="title">
+            <%= yield :account_title %>
+        </div>
+        <div class="create content">
+            <%= yield :account_content %>
+        </div>
+    </div>
+    <div class="nav">
+        <%= yield :account_nav %>
+    </div>
+    <%= javascript_include_tag "jquery.min", "frame", "return", "tip", "websocket" %>
+    <%= yield :account_javascript %>
+  </body>
+</html>

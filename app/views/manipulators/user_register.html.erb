@@ -1,0 +1,53 @@
+<% content_for :account_stylesheet do %>
+    
+<% end %>
+
+<% content_for :account_title do %>
+    <h1>用户注册</h1>
+<% end %>
+
+<% content_for :account_content do %>
+    <%= form_with url: do_register_manipulators_path, remote: true, html: { style: "display: block;" }, class: "form-submit" do %>
+        <%= hidden_field_tag :类型, "用户", id: nil %>
+        <div>
+            <span class="div1"><%= label_tag :头像, nil, for: nil %>:</span>
+            <div class="div2"><%= file_field_tag :头像 %></div>
+        </div>
+        <div>
+            <span class="div1"><%= label_tag :名称, nil, for: nil %><span style="color: red;">*</span>:</span>
+            <div class="div2"><%= text_field_tag :名称, nil, id: nil %></div>
+        </div>
+        <div>
+            <span class="div1"><%= label_tag :密码, nil, for: nil %><span style="color: red;">*</span>:</span>
+            <div class="div2">
+                <%= password_field_tag :密码, nil, id: nil %>
+                <div class="show-button">显示密码</div>
+            </div>
+        </div>
+        <div>
+            <span class="div1"><%= label_tag :性别, nil, for: nil %><span style="color: red;">*</span>:</span>
+            <div class="div2">
+                <%= radio_button_tag "性别", "男", false, id: "gender_male" %>
+                <%= label_tag "gender_male", "男" %>
+                <%= radio_button_tag "性别", "女", false, id: "gender_female" %>
+                <%= label_tag "gender_female", "女" %>
+            </div>
+        </div>
+        <div style="position: relative;">
+            <%= submit_tag '注册', class: "submit-button" %>
+        </div>
+    <% end %>
+    <div style="position: relative;">
+        <%= link_to '返回主页', song_types_url, class: "back-button" %>
+    </div>
+<% end %>
+
+<% content_for :account_nav do %>
+    <%= link_to '用户注册', user_register_manipulators_url, class: "link link-title" %>
+    <%= link_to '用户登录', user_login_manipulators_url, class: "link" %>
+    <%= link_to '管理员登录', manager_login_manipulators_url, class: "link" %>
+<% end %>
+
+<% content_for :account_javascript do %>
+    <%= javascript_include_tag "password" %>
+<% end %>

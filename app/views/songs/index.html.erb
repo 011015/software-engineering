@@ -1,0 +1,107 @@
+<% content_for :main_stylesheet do %>
+  <%= stylesheet_link_tag "user_header", "song/song_info" %>
+<% end %>
+
+<% content_for :main_title do %>
+  <li><a href="<%= song_types_url %>" class="link">首页</a></li>
+  <li><a href="<%= songs_url %>" class="link title">曲谱</a></li>
+  <% if current_manipulatorid %>
+    <% if current_manipulatortype == "用户" %>
+      <li><a href="<%= personal_info_manipulators_url %>" class="link homepage">个人主页</a></li>
+    <% else %>
+      <li><a href="<%= manipulators_url %>" class="link managementpage">管理页面</a></li>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% content_for :main_body do %>
+  <div class="body">
+    <div class="op_nav clearfix">
+      <% if current_manipulatorid %>
+        <%= link_to "创建曲谱", new_song_path, class:"new-button", style:"float: left;" %>
+      <% end %>
+      <%= form_with url: songs_path, method: "get" do |f| %>
+        <%= f.text_field :文本, value: @text, placeholder: "输入用户名/曲谱名称/演唱/作词/作曲" %>
+        <%= f.label :收藏数, "收藏数: " %>
+        <%= f.select :收藏数, options_for_select([["升序", "ASC"], ["降序", "DESC"]], @collect_sort), include_blank: true %>
+        <%= f.label :发布时间, "发布时间: " %>
+        <%= f.select :发布时间, options_for_select([["升序", "ASC"], ["降序", "DESC"]], @created_sort), include_blank: true %>
+        <%= f.submit "搜索", class: "search-button", style: "margin-left: 5px;" %>
+      <% end %>
+    </div>
+
+      <% @songs.each do |song| %>
+        <div class="main" id="song_<%= song.id %>" style="width: 600px; margin: auto;">
+
+        <div class="song">
+
+          <div class="song_user clearfix">
+            <div class="song_user_avatar">
+              <%= image_tag song.manipulator.头像.图片 %>
+            </div>
+            <div class="song_user_info">
+              <p class="song_user_name">
+                <% if song.respond_to?(:manipulator_名称) %>
+                  <%= song.manipulator_名称 %>
+                <% else %>
+                  <%= song.manipulator.名称 %>
+                <% end %>
+              </p>
+              <p class="song_date"><%= song.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+            </div>
+          </div>
+
+          <div class="song_info clearfix">
+            <div class="song_avatar">
+                <%= image_tag song.封面.图片 %>
+            </div>
+
+            <div class="song_content">
+              <div>
+                <h1 class="song_name"><%= song.名称 %></h1>
+                <h5>演唱: <%= song.演唱 %></h5>
+                <h5>作词: <%= song.作词 %></h5>
+                <h5>作曲: <%= song.作曲 %></h5>
+                <h5>
+                  类型: 
+                  <% song.song_types.each_with_index do |song_type, index| %>
+                    <% if index == 0 %>
+                      <%= song_type.名称 %>
+                    <% else %>
+                      , <%= song_type.名称 %>
+                    <% end %>
+                  <% end %>
+                </h5>
+                <h5>收藏数: <%= song.collects.length %></h5>
+                <div>
+                  <%= link_to "查看", song, class: "link-button" %>
+                  <% if current_manipulatorid && current_manipulatorid.id == song.manipulator.id %>
+                    <%= link_to "修改", edit_song_path(song), class: "change-button" %>
+                    <%= form_with(model: song, remote: true, method: :delete, class: "form-delete") do |form| %>
+                      <%= form.button "删除", class: "delete-button" %>
+                      <%= form.hidden_field :ID, value: "id" %>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        </div>
+      <% end %>
+
+  </div>
+<% end %>
+
+<% content_for :main_nav do %>
+<div style="position: fixed; top: 70%;">
+    <a class="link" href="#top">返回顶部</a>
+</div>
+<% end %>
+
+<% content_for :main_javascript do %>
+
+<% end %>

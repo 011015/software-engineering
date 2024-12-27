@@ -1,0 +1,38 @@
+<div class="main" id="song_type_<%= song_type.id %>">
+<h3 class="main-header">
+  <%= image_tag 'song/icon3.png' %>
+  <span><%= song_type.名称 %></span>
+  <% if current_manipulatortype == "管理员" %>
+    <div style="padding-bottom:5px; display: inline-block;">
+      <%= button_to "删除", song_type, method: :delete, class: "delete-button", remote: true, form: { class: "form-delete" } %>
+    </div>
+  <% end %>
+</h3>
+
+<ul class="main-content clearfix">
+  <% song_type.songs.each_with_index do |song, index| %>
+    <% if ((index + 1) % 4 == 0) %>
+      <li class="recommend clear">
+    <% else %>
+      <li class="recommend">
+    <% end %>
+    <a href="<%= song_url(song) %>" class="touch">
+        <div class="touch1"></div>
+        <%= image_tag song.封面.图片, class: "zoom" %>
+    </a>
+    <p class="recommend-content"><%= song.名称 %></p>
+    <p class="recommend-content add"><%= song.演唱 %> | <%= song.作词 %> | <%= song.作曲 %></p>
+    <p class="recommend-content add">
+      <% if song.respond_to?(:collect_count) %>
+        <%= song.collect_count %>
+      <% else %>
+        <%= song.collects.length %>
+      <% end %>
+       | 
+      <%= song.created_at.strftime("%Y-%m-%d %H:%M") %>
+    </p>
+    </li>
+  <% end %>
+</ul>
+
+</div>

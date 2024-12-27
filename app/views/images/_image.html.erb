@@ -1,0 +1,11 @@
+<div id="image_<%= image.id %>" class="picture">
+    <div class="button">
+    <% if !(image.属性 == nil && current_manipulatorid && current_manipulatorid.id != @song.manipulator.id) %>
+        <a href="/assets/<%= image.图片 %>" download class="download-button">下载</a>
+    <% end %>
+    <% if current_manipulatorid && current_manipulatorid.id == @song.manipulator.id %>
+        <%= button_to "删除", [@song, image], method: :delete, remote: true, class: "delete-button", form: {class: "form-delete"} %>
+    <% end %>
+    </div>
+    <%= image_tag image.图片, class: "shadow" %>
+</div>

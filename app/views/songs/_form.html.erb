@@ -1,0 +1,41 @@
+<%= form_with(model: song, remote: true, class: "form-submit") do |form| %>
+  <div>
+    <span class="div1"><%= label_tag :封面 %>:</span>
+    <div class="div2"><%= file_field_tag :封面 %></div>
+  </div>
+
+  <div>
+    <span class="div1"><%= form.label :演唱 %><span style="color: red;">*</span>:</span>
+    <div class="div2"><%= form.text_field :演唱 %></div>
+  </div>
+
+  <div>
+    <span class="div1"><%= form.label :作词 %><span style="color: red;">*</span>:</span>
+    <div class="div2"><%= form.text_field :作词 %></div>
+  </div>
+
+  <div>
+    <span class="div1"><%= form.label :作曲 %><span style="color: red;">*</span>:</span>
+    <div class="div2"><%= form.text_field :作曲 %></div>
+  </div>
+
+  <div>
+    <span class="div1"><%= form.label :名称 %><span style="color: red;">*</span>:</span>
+    <div class="div2"><%= form.text_field :名称 %></div>
+  </div>
+
+  <div>
+    <span class="div1">曲谱类型<span style="color: red;">*</span>:</span>
+    <div class="div2">
+      <%= form.collection_check_boxes :song_type_ids, SongType.all, :id, :名称 do |b| %>
+        <%= b.label{ b.check_box + b.text } %>
+      <% end %>
+    </div>
+  </div>
+
+  <%= hidden_field_tag :path, @path %>
+
+  <div style="position: relative;">
+      <%= submit_tag @button_text, class: "submit-button" %>
+  </div>
+<% end %>

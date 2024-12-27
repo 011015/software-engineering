@@ -1,0 +1,8 @@
+<tr id="collect_<%= collect.id %>">
+  <td>
+    <%= link_to collect.song.名称, collect.song %>
+  </td>
+  <td>
+    <%= button_to "取消收藏", delete_collect_path(collect), method: :delete, remote: true, class: "collect-button", form: { class: "form-change" } %>
+  </td>
+</tr>

@@ -1,0 +1,33 @@
+:root {
+    --plyr-color-main: #f4c367;
+}
+
+.main {
+    width: 805px;
+    margin: auto;
+}
+
+.song_header {
+    height: 30px;
+    line-height: 30px;
+    padding-bottom: 10px;
+}
+
+.song_header > img {
+    float: left;
+    height: 100%;
+    width: auto;
+}
+
+.song_header > span {
+    margin-left: 5px;
+}
+
+.picture > img {
+    width: 100%;
+    height: auto;
+}
+
+.shadow {
+    box-shadow: 0 0 10px 0 #b1afaf;
+}

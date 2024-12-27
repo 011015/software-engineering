@@ -1,0 +1,50 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+button {
+    border: none;
+    outline: none;
+    background-color: rgba(0,0,0,0);
+    cursor: pointer;
+}
+
+.show-button, .submit-button, .new-button, 
+.return-button, .delete-button, .link-button, 
+.change-button, .upload-button, .download-button, 
+.back-button, .report-button, .collect-button, 
+.search-button, .reply-button {
+    display: inline-block;
+    height: 24px;
+    font: 14px "微软雅黑", Arial, Helvetica, sans-serif;
+    padding: 0 10px;
+    background-color: #fff;
+    border: 1px solid #e3873e;
+    border-radius: 12px;
+    color: #e3873e;
+    box-sizing: border-box;
+    cursor: pointer;
+    line-height: 24px;
+}
+
+.button-active, .show-button:hover, .submit-button:hover, 
+.new-button:hover, .return-button:hover, .delete-button:hover, 
+.link-button:hover, .change-button:hover, .upload-button:hover, 
+.download-button:hover, .back-button:hover, .report-button:hover, 
+.collect-button:hover, .search-button:hover, .reply-button:hover {
+    background-color: #e3873e;
+    color: #fff;
+}
+
+.button {
+    padding-bottom: 10px;
+}
+
+form {
+    display: inline-block;
+}

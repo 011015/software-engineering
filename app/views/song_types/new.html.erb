@@ -1,0 +1,18 @@
+<% content_for :account_stylesheet do %>
+  <%= stylesheet_link_tag "song/background" %>
+<% end %>
+
+<% content_for :account_title do %>
+  <h1>创建曲谱类型</h1>
+<% end %>
+
+<% content_for :account_content do %>
+  <%= render "form", song_type: @song_type %>
+  <div style="position: relative;">
+    <button class="return-button">返回</button>
+  </div>
+<% end %>
+
+<% content_for :account_javascript do %>
+
+<% end %>

@@ -1,0 +1,31 @@
+.song_user_avatar {
+    width: 50px;
+    height: 50px;
+    float: left;
+}
+
+.song_user_avatar > img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 4px solid #EBC26E;
+    margin: 5px;
+    box-sizing: border-box;
+}
+
+.song_user_info {
+    float: left;
+    height: 40px;
+    padding: 5px 0;
+}
+
+.song_user_info > p {
+    height: 20px;
+    margin-left: 5px;
+    text-align: left;
+}
+
+.song_date, .Comment_date {
+    font-size: 14px;
+    color: #767575;
+}

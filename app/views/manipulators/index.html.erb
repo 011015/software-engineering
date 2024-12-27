@@ -1,0 +1,43 @@
+<% content_for :manager_stylesheet do %>
+<% end %>
+
+<% content_for :manager_title do %>
+  <li><a href="<%= manipulators_url %>" class="link title">操作者信息</a></li>
+  <li><a href="<%= reports_url %>" class="link">举报信息</a></li>
+  <li><a href="<%= song_types_url %>" class="link">首页</a></li>
+<% end %>
+
+<% content_for :manager_search do %>
+  <div class="search">
+    <%= form_with url: manipulators_path, method: "get" do |f| %>
+      <%= f.text_field :文本, value: @text, placeholder: "输入名称" %>
+      <%= f.label :类型, "类型: " %>
+      <%= f.select :类型, options_for_select(["用户", "管理员"], @type), include_blank: true %>
+      <%= f.label :性别, "性别: " %>
+      <%= f.select :性别, options_for_select(["男", "女"], @sex), include_blank: true %>
+      <%= f.submit "搜索", style: "margin-left: 5px;" %>
+    <% end %>
+  </div>
+<% end %>
+
+<% content_for :manager_table_title do %>
+  <tr>
+  <td></td>
+  <td>名称</td>
+  <td>类型</td>
+  <td>性别</td>
+  <td>操作</td>
+  </tr>
+<% end %>
+
+<% content_for :manager_table_body do %>
+  <% @manipulators.each do |manipulator| %>
+    <tr id=manipulator-<%= manipulator.id %>>
+      <%= render manipulator %>
+    </tr>
+  <% end %>
+<% end %>
+
+<% content_for :manager_javascript do %>
+
+<% end %>

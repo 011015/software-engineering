@@ -1,0 +1,138 @@
+<% content_for :main_stylesheet do %>
+    <%= stylesheet_link_tag "account/personal_info" %>
+<% end %>
+  
+  <% content_for :main_title do %>
+    <li><a href="<%= song_types_url %>" class="link">首页</a></li>
+    <li><a href="<%= songs_url %>" class="link">曲谱</a></li>
+    <% if current_manipulatorid %>
+    <% if current_manipulatortype == "用户" %>
+      <li><a href="<%= personal_info_manipulators_url %>" class="link title homepage">个人主页</a></li>
+    <% else %>
+      <li><a href="<%= manipulators_url %>" class="link managementpage">管理页面</a></li>
+    <% end %>
+    <% end %>
+  <% end %>
+  
+  <% content_for :main_body do %>
+    <div class="body">
+        <div class="main">
+            <img class="profile-cover" src="/assets/account/background4.jpg">
+            <div class="profile-avatar">
+                <%= image_tag @manipulator.头像.图片 %>
+            </div>
+            <div class="profile-name"><span><%= @manipulator.名称 %></span></div>
+            <div class="select-block1">
+                <%= form_with url: request.path, method: "get" do %>
+                    <%= hidden_field_tag :data, "mydata" %>
+                    <%= button_tag "修改资料", class: "select-header1", id: "mydata-header" %>
+                <% end %>
+                <%= form_with url: request.path, method: "get" do %>
+                    <%= hidden_field_tag :data, "mycollect" %>
+                    <%= button_tag "我的收藏 (#{@manipulator.collects.length})", class: "select-header1", id: "mycollect-header" %>
+                <% end %>
+                <button class="select-header1" id="mynotice" value="mynotice">我的通知 (<%= @unread_count %>)</button>
+            </div>
+        </div>
+
+        <div class="select-block2" id="mymessage">
+            <%= form_with url: request.path, method: "get" do %>
+                <%= hidden_field_tag :data, "未读" %>
+                <%= button_tag "未读", class: "select-header2", id: "未读" %>
+            <% end %>
+            <%= form_with url: request.path, method: "get" do %>
+                <%= hidden_field_tag :data, "已读" %>
+                <%= button_tag "已读", class: "select-header2", id: "已读" %>
+            <% end %>
+        </div>
+        
+        <% if @select == "mydata" %>
+            <div id="mydata" class="container">
+                <div class="form">
+
+                <%= form_with model: @manipulator, remote: true, html: { style: "display: block;" }, class: "form-update" do |form| %>
+                    <%= form.hidden_field :类型, value: "用户" %>
+                    <div class="input-container clearfix">
+                        <span class="form-header"><%= label_tag :头像 %>:</span>
+                        <span class="form-content"><%= file_field_tag :头像 %></span>
+                    </div>
+                    <div class="input-container clearfix">
+                        <span class="form-header"><%= form.label :名称 %>:</span>
+                        <span class="form-content"><%= form.text_field :名称 %></span>
+                    </div>
+                    <div class="input-container clearfix">
+                        <span class="form-header"><%= label_tag :原密码 %>:</span>
+                        <span class="form-content"><%= password_field_tag :原密码 %></span>
+                    </div>
+                    <div class="input-container clearfix">
+                        <span class="form-header"><%= form.label :密码, "新密码" %>:</span>
+                        <span class="form-content"><%= form.password_field :密码 %><div class="show-button2">显示密码</div></span>
+                    </div>
+                    <div class="input-container clearfix">
+                        <span class="form-header"><%= label_tag :确认密码 %>:</span>
+                        <span class="form-content"><%= password_field_tag :确认密码 %></span>
+                    </div>
+                    
+                    <div class="input-container clearfix">
+                        <span class="form-header"><%= form.label :性别 %>:</span>
+                        <span class="form-content">
+                            <%= form.radio_button "性别", "男", id: "gender_male" %>
+                            <%= label_tag "gender_male", "男" %>
+                            <%= form.radio_button "性别", "女", id: "gender_female" %>
+                            <%= label_tag "gender_female", "女" %>
+                        </span>
+                    </div>
+
+                    <div>
+                        <%= form.submit "修改", class: "submit1" %>
+                    </div>
+                <% end %>
+                
+                <div style="text-align: center;">
+                    <%= button_to "删除头像", { controller: "manipulators", action: "delete_avatar" }, method: :delete, class: "submit1", remote: true, form: { class: "form-default" } %>
+                    <%= button_to "注销", @manipulator, method: :delete, class: "submit1", remote: true, form: { class: "form-delete" } %>
+                </div>
+
+                </div>
+            </div>
+        <% elsif @select == "mycollect" %>
+            <div id="mycollect">
+                <table class="select-content" width="100%" cellpadding="0" cellspacing="0">
+                    <tbody>
+                        <%= render :partial => @manipulator.collects %>
+                    </tbody>
+                </table>
+            </div>
+        <% else %>
+            <div>
+                <table class="select-content" width="100%" cellpadding="0" cellspacing="0">
+                    <tbody>
+                        <% if @msgs.present? %>
+                            <% @msgs.each do |msg| %>
+                                <%= render partial: 'notices/notice', locals: { notice: msg } %>
+                            <% end %>
+                        <% end %>
+                    </tbody>
+                </table>
+            </div>
+        <% end %>
+
+    </div>
+  <% end %>
+  
+  <% content_for :main_javascript do %>
+    <script>
+    $(function() {
+        // 在文档加载完成时执行的代码
+        let select = '<%= @select %>';
+        if (select != 'mydata' && select != 'mycollect') {
+            $("#mymessage").show();
+            $("#mynotice").toggleClass("select-header-active");
+            $("#" + select).toggleClass("select-header-active");
+        } else {
+            $("#" + select + "-header").toggleClass("select-header-active");
+        }
+    });
+    </script>
+    <%= javascript_include_tag "personal_info_select", "password", "tip" %>
+  <% end %>

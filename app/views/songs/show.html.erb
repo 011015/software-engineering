@@ -1,0 +1,120 @@
+<% content_for :main_stylesheet do %>
+  <%= stylesheet_link_tag "user_header", "song/song_info", "song/song_page", "song/comment", "song/plyr.min" %>
+<% end %>
+<% content_for :main_title do %>
+  <li><a href="<%= song_types_url %>" class="link">首页</a></li>
+  <li><a href="<%= songs_url %>" class="link">曲谱</a></li>
+  <% if current_manipulatorid %>
+    <% if current_manipulatortype == "用户" %>
+      <li><a href="<%= personal_info_manipulators_url %>" class="link homepage">个人主页</a></li>
+    <% else %>
+      <li><a href="<%= manipulators_url %>" class="link managementpage">管理页面</a></li>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% content_for :main_body do %>
+  <div class="body">
+
+  <div class="main">
+      <div class="song">
+        <%= render @song %>
+      </div>
+
+      <div class="song">
+        <h3 class="song_header">
+          <%= image_tag 'song/icon4.png' %>
+          <span>曲谱</span>
+        </h3>
+        <% if current_manipulatorid && current_manipulatorid.id == @song.manipulator.id %>
+          <%= form_with(model: [@song, Image.new], remote: true, class: "form-upload") do |f| %>
+            <div style="padding-bottom:10px;">
+              <%= f.file_field :图片, :multiple => true, accept: "image/*" %>
+            </div>
+            <div style="padding-bottom:10px;">
+              <label>
+                <%= check_box_tag '属性', '允许' %>
+                允许下载
+              </label>
+            </div>
+            <div style="padding-bottom:10px;">
+              <%= f.submit "上传图片", class:"upload-button" %>
+            </div>
+          <% end %>
+        <% end %>
+
+        <%= render :partial => @song.images %>
+
+      </div>
+
+      <div class="song">
+        <h3 class="song_header">
+          <%= image_tag 'song/icon6.png' %>
+          <span>音频</span>
+        </h3>
+
+        <% if @song.audio %>
+          <%= render partial: 'audios/audio', locals: { audio: @song.audio } %>
+        <% elsif current_manipulatorid && current_manipulatorid.id == @song.manipulator.id %>
+          <%= form_with(model: [@song, Audio.new], remote: true, class: "form-upload") do |f| %>
+            <div style="padding-bottom:10px;">
+              <%= f.file_field :音频, accept: "audio/*" %>
+            </div>
+            <div style="padding-bottom:10px;">
+              <label>
+                <%= check_box_tag '属性', '允许' %>
+                允许下载
+              </label>
+            </div>
+            <div style="padding-bottom:10px;">
+            <%= f.submit "上传音频", class:"upload-button" %>
+          </div>
+          <% end %>
+        <% end %>
+
+      </div>
+
+      <div class="comment">
+        <h3 class="comment-header">
+            <%= image_tag 'song/icon1.png' %>
+            <span>评论</span>
+        </h3>
+        <%= form_with model: [@song, Comment.new], remote: true, class: "form-default" do |f| %>
+          <div class="comment-block">
+            <div class="input-box">
+                <%= f.text_area :内容, placeholder: "评论内容", maxlength: "500", class: "input-text" %>
+                <div class="face-div"></div>
+                <div class="input-foot">
+                    <a class="img-btn" href="javascript:void(0);"></a>
+                    <%= f.submit "发表评论", class: "post-btn" %>
+                    <div class="input-tips">还可以输入<span class="tips-word">500</span>字符</div>
+                </div>
+            </div>
+          </div>
+        <% end %>
+
+        <div class="comment-all">
+          <h3 class="comment-header">
+              <%= image_tag 'song/icon2.png' %>
+              <span>所有评论</span>
+          </h3>
+          <%= render :partial => @song.comments %>
+        </div>
+      </div>
+
+  </div>
+
+  </div>
+  
+<% end %>
+<% content_for :main_nav do %>
+<div style="position: fixed; top: 70%;">
+    <a class="link" href="#top">返回顶部</a>
+</div>
+<% end %>
+<% content_for :main_javascript do %>
+  <%= javascript_include_tag "comment", "plyr.min" %>
+  <script type="text/javascript">
+    const player1 = new Plyr('#player1');
+  </script>
+<% end %>

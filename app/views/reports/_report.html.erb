@@ -1,0 +1,31 @@
+<% if report.comment %>
+  <td><%= report.内容 %><a href="/songs/<%= report.song.id %>#comment-<%= report.comment.id %>"></a></td>
+  <td><%= report.manipulator.名称 %><a href="/songs/<%= report.song.id %>#comment-<%= report.comment.id %>"></a></td>
+  <td><%= report.comment.内容 %><a href="/songs/<%= report.song.id %>#comment-<%= report.comment.id %>"></a></td>
+<% else %>
+  <td><%= report.内容 %></td>
+  <td><%= report.manipulator.名称 %></td>
+  <td><%= report.message %></td>
+<% end %>
+<% if @state == "待审核" %>
+  <td>
+    <%= form_with(model: report, remote: true, class: "form-delete") do |form| %>
+      <%= form.hidden_field :状态, value: "已通过" %>
+      <%= form.button "通过", class: "accept" %>
+    <% end %>
+    <%= form_with(model: report, remote: true, class: "form-delete") do |form| %>
+      <%= form.hidden_field :状态, value: "已驳回" %>
+      <%= form.button "驳回", class: "reject" %>
+    <% end %>
+  </td>
+<% else %>
+  <td>
+    <% if report.状态 == '待审核' %>
+      <span><%= report.状态 %></span>
+    <% elsif report.状态 == '已通过' %>
+      <span style="color: #7bda5b;"><%= report.状态 %></span>
+    <% else %>
+      <span style="color: #eaa250;"><%= report.状态 %></span>
+    <% end %>
+  </td>
+<% end %>

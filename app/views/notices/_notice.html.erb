@@ -1,0 +1,29 @@
+<tr id="notice_<%= notice.id %>">
+    <td>
+        <% if notice.notification_type == "收藏" %>
+            <span><a href="<%= notice.path %>"><%= notice.sender %>收藏了你的曲谱: <%= notice.内容 %></a></span>
+        <% elsif notice.notification_type == "回复" %>
+            <span><a href="<%= notice.path %>"><%= notice.sender %>回复了你的评论: <%= notice.内容 %></a></span>
+        <% elsif notice.notification_type == "举报" %>
+            <span><a href="<%= notice.path %>"><%= notice.sender %>举报了你的评论: <%= notice.内容 %></a></span>
+        <% elsif notice.notification_type == "删除" %>
+            <span><a href="<%= notice.path %>"><%= notice.sender %>删除了你的评论: <%= notice.内容 %></a></span>
+        <% else %>
+            <span><a href="<%= notice.path %>"><%= notice.sender %><%= notice.notification_type %>了你的举报: <%= notice.内容 %></a></span>
+        <% end %>
+    </td>
+    <td>
+        <% if notice.read_by_receiver == '未读' %>
+             <%= form_with(model: notice, class: "form-change", remote: true) do |f| %>
+                <%= f.hidden_field :read_by_receiver, value: "已读" %>
+                <%= f.submit "标为已读", class: "read-button" %>
+            <% end %>
+        <% else %>
+            <%= form_with(model: notice, class: "form-change", remote: true) do |f| %>
+                <%= f.hidden_field :read_by_receiver, value: "未读" %>
+                <%= f.submit "标为未读", class: "read-button" %>
+            <% end %>
+        <% end %>
+        <%= button_to "删除", notice, method: :delete, class: "read-button", remote: true, form: { class: "form-delete" } %>
+    </td>
+</tr>

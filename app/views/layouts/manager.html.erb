@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="/assets/查询.png" type="image/x-icon">
+    <title>曲谱交流平台</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= action_cable_meta_tag %>
+    <%= stylesheet_link_tag "manager/style1", "frame", "button" %>
+    <%= yield :manager_stylesheet %>
+  </head>
+
+  <body>
+  <div class="outer">
+  <div class="header">
+      <div class="nav">
+          <ul>
+              <%= yield :manager_title %>
+          </ul>
+      </div>
+      <div style="width: 50px; height:70px; float: right;"></div>
+      <div style="height:70px; float: right;">
+          <%= link_to '登出', logout_manipulators_url, class: "link", id: "logout" %>
+      </div>
+      <div style="width: 50px; height:70px; float: right;"></div>
+      <%= yield :manager_search %>
+  </div>
+  <div class="main">
+
+  <table width="100%" cellpadding="0" cellspacing="0">
+  <thead>
+    <%= yield :manager_table_title %>
+  </thead>
+  <tbody>
+    <%= yield :manager_table_body %>
+  </tbody>
+  </table>
+
+  </div>
+  </div>
+    <%= javascript_include_tag "jquery.min", "frame", "return", "authenticate", "tip", "websocket" %>
+    <%= yield :manager_javascript %>
+  </body>
+</html>

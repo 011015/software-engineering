@@ -1,0 +1,39 @@
+<div class="song_info clearfix">
+  <div class="song_avatar">
+    <%= image_tag song.封面.图片 %>
+  </div>
+
+  <div class="song_content">
+    <div>
+      <h1 class="song_name"><%= song.名称 %></h1>
+      <h5>演唱: <%= song.演唱 %></h5>
+      <h5>作词: <%= song.作词 %></h5>
+      <h5>作曲: <%= song.作曲 %></h5>
+      <h5>类型: 
+        <% song.song_types.each_with_index do |song_type, index| %>
+          <% if index == 0 %>
+            <%= song_type.名称 %>
+          <% else %>
+            , <%= song_type.名称 %>
+          <% end %>
+        <% end %>
+      </h5>
+      <h5>发布者: <%= song.manipulator.名称 %></h5>
+      <div class="button">
+        <% if @collect %>
+          <%= form_with(model: [song, @collect], remote: true, method: :delete, class: "form-default") do |form| %>
+            <%= form.button "取消收藏", id: "collect", class: "collect-button button-active" %>
+          <% end %>
+        <% else %>
+          <%= form_with(model: [song, Collect.new], remote: true, class: "form-default") do |form| %>
+            <%= form.button "收藏", id:"collect", class: "collect-button" %>
+          <% end %>
+        <% end %>
+        <% if current_manipulatorid && current_manipulatorid.id == song.manipulator.id %>
+          <%= link_to "修改", edit_song_path(song), class: "change-button" %>
+          <%= button_to "删除", song, method: :delete, remote: true, class: "delete-button", form: { class: "form-delete" } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

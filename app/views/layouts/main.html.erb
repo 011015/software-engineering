@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="/assets/查询.png" type="image/x-icon">
+    <title>曲谱交流平台</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= action_cable_meta_tag %>
+    <%= stylesheet_link_tag "song/header", "frame", "button", "form" %>
+    <%= yield :main_stylesheet %>
+  </head>
+
+  <body>
+    <div class="outer">
+      <div class="header nav">
+        <ul class="nav-left">
+            <%= yield :main_title %>
+        </ul>
+        <ul class="nav-right">
+            <% unless current_manipulatorid %>
+              <li>
+                <%= link_to '注册', user_register_manipulators_url, class: "link" %>
+              </li>
+              <li>
+                <%= link_to '登录', user_login_manipulators_url, class: "link" %>
+              </li>
+            <% else %>
+              <li>
+                <%= link_to '登出', logout_manipulators_url, class: "link", id: "logout" %>
+              </li>
+              <li class="username">
+                <span><%= current_manipulatorid.名称 %></span>
+              </li>
+              <li class="user">
+                <a href="/manipulators/personal_info">
+                  <%= image_tag current_manipulatorid.头像.图片 %>
+                </a>
+              </li>
+            <% end %>
+            <li>
+              <div style="width: 100px; height:70px; float: left;"></div>
+            </li>
+        </ul>
+      </div>
+      <%= yield :main_body %> 
+    </div>
+    <%= yield :main_nav %>
+    <%= javascript_include_tag "jquery.min", "frame", "return", "authenticate", "tip", "websocket" %>
+    <%= yield :main_javascript %>
+  </body>
+</html>

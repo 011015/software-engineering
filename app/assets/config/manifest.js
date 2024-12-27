@@ -1,0 +1,15 @@
+//= link_tree ../images
+//= link_directory ../stylesheets .css
+//= link_tree ../../javascript .js
+//= link_tree ../../../vendor/javascript .js
+//= link_tree ../javascripts .js
+//= link account/style1.css
+//= link account/personal_info.css
+//= link song/header.css
+//= link song/song_type_index.css
+//= link song/background.css
+//= link song/song_info.css
+//= link song/song_page.css
+//= link song/comment.css
+//= link song/plyr.min.css
+//= link manager/style1.css

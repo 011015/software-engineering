@@ -1,0 +1,177 @@
+/* img {
+    width: 100%;
+    height: 100%;
+} */
+
+.main {
+    width: 1200px;
+    margin: auto;
+}
+
+.main .main-header {
+    height: 30px;
+    line-height: 30px;
+    margin-bottom: 10px;
+}
+
+.main .main-header>img {
+    float: left;
+    height: 100%;
+    width: auto;
+}
+
+.main .main-header>span {
+    margin-left: 5px;
+}
+
+.main-content .recommend {
+    float: left;
+    width: 285px;
+    /*height: 300px;*/
+    margin-right: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px 0 #9a9696;
+    background-color: #FFFFFF;
+}
+
+.recommend .touch {
+    display: block;
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+}
+
+.touch > img {
+    width: 100%;
+    height: 100%;
+}
+
+.main-content .recommend .recommend-content {
+    margin: 2px 0 2px 8px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.recommend-content.add {
+    font-size: small;
+    color: grey;
+}
+
+.touch1 {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: none;
+    background: rgba(0, 0, 0, 0.2) url(assets/view.png) no-repeat center;
+    background-size: 34px 34px;
+}
+
+.touch2 {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: none;
+    background: rgba(0, 0, 0, 0.2) url(assets/play.png) no-repeat center;
+}
+
+.recommend .touch:hover .zoom {
+    margin-left: -10%;
+    margin-top: -10%;
+    width: 120%;
+    height: 120%;
+}
+
+.recommend .touch:hover .touch1 {
+    display: block;
+}
+
+.recommend .touch:hover .touch2 {
+    display: block;
+}
+.main-content .clear {
+    margin-right: 0;
+}
+
+.op_nav {
+    width: 1200px; 
+    margin: auto; 
+    padding-bottom: 20px;
+}
+
+.op_nav > form {
+    float: right;
+}
+
+.op_nav > form > input[type="text"] {
+    width: 280px;
+    height: 24px;
+    border: 1px solid black;
+    padding: 0px 10px;
+    box-sizing: border-box;
+    font: 14px "微软雅黑", Arial, Helvetica, sans-serif;
+}
+
+.op_nav > form > label, select {
+    margin-left: 5px;
+}
+
+.op_nav > form select {
+    height: 24px;
+}
+
+.search_block {
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 10px 0 #9a9696;
+    float: left; 
+    margin-left: 10px;
+    width: 750px;
+}
+
+.search_content {
+    max-height: 20.8px;
+    overflow: hidden;
+}
+
+.search_content.expanded {
+    height: auto;
+}
+
+.search_block > span {
+    float: left;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.search_block > div > input {
+    margin-right: 2px;
+}
+
+.icon {
+    height: 24px;
+    text-align: center;
+}
+
+.icon_arrow {
+    width: 24px;
+    height: 24px;
+    background-color: #F1F3F4;
+    border-radius: 50%;
+    /*设置所有动画的效果：0.3s 淡出效果*/
+    transition: all .3s ease-out;
+    cursor: pointer;
+}
+
+.icon_arrow:hover {
+    background-color: #d5d8d8;
+}
+
+.icon_arrow_rotate {
+    /*旋转180度*/
+    transform: rotate(180deg);
+}
+
+.show {
+    display: block;
+}

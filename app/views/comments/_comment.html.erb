@@ -1,0 +1,70 @@
+<div class="comment-one" id="comment_<%= comment.id %>">
+  <div class="comment-user clearfix">
+    <div class="comment-user-avatar">
+      <%= image_tag comment.manipulator.头像.图片 %>
+    </div>
+    <div class="comment-user-info">
+      <p>
+        <span class="comment-username"><%= comment.manipulator.名称 %></span>
+        <% if comment.parent_comment %>
+          <span class="comment-date"> 回复 </span>
+          <span class="comment-username"><%= comment.parent_comment.manipulator.名称 %></span>
+        <% end %>
+      </p>
+      <p class="comment-date"><%= comment.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+    </div>
+  </div>
+  <p class="comment-content" id="comment-<%= comment.id %>">
+    <%= comment.内容 %>
+  </p>
+  <div class="button">
+    <% if current_manipulatorid && current_manipulatorid.id == comment.manipulator.id %>
+      <%= button_to "删除", [@song, comment], method: :delete, class: "delete-button", remote: true, form: { class: "form-delete" } %>
+    <% end %>
+    <% if current_manipulatorid %>
+      <button class="reply-button" value="reply-<%= comment.id %>">回复</button>
+    <% end %>
+    <% if current_manipulatortype == "用户" %>
+      <button class="report-button" value="report-<%= comment.id %>">举报</button>
+    <% end %>
+  </div>
+
+  <%= form_with model: [@song, comment, Comment.new], remote: true, class: "form-default comment-block reply-block", id: "reply-#{comment.id}" do |f| %>
+    <% if comment.parent_comment %>
+      <div class="input-box" style="width: 765px;">
+    <% else %>
+      <div class="input-box" style="width: 796px;">
+    <% end %>
+        <%= f.text_area :内容, placeholder: "评论内容", maxlength: "500", class: "input-text" %>
+        <div class="face-div"></div>
+        <div class="input-foot">
+            <a class="img-btn" href="javascript:void(0);"></a>
+            <%= f.submit "回复", class: "post-btn" %>
+            <div class="input-tips">还可以输入<span class="tips-word">500</span>字符</div>
+        </div>
+    </div>
+  <% end %>
+
+  <%= form_with model: [@song, comment, Report.new], remote: true, class: "form-default comment-block reply-block", id: "report-#{comment.id}" do |f| %>
+    <div class="input-box">
+        <%= f.text_area :内容, placeholder: "评论内容", maxlength: "500", class: "input-text" %>
+        <div class="face-div"></div>
+        <div class="input-foot">
+            <a class="img-btn" href="javascript:void(0);"></a>
+            <%= f.submit "举报", class: "post-btn" %>
+            <div class="input-tips">还可以输入<span class="tips-word">500</span>字符</div>
+        </div>
+    </div>
+  <% end %>
+
+  <% if comment.child_comments.present? %>
+    <% comment.child_comments.each do |child_comment| %>
+      <% if child_comment.present? %>
+        <div style="width: 780px; margin-left: auto;">
+          <%= render partial: 'comments/comment', locals: { comment: child_comment } %>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+
+</div>

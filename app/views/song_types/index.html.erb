@@ -1,0 +1,56 @@
+<% content_for :main_stylesheet do %>
+  <%= stylesheet_link_tag "song/song_type_index" %>
+<% end %>
+
+<% content_for :main_title do %>
+  <li><a href="<%= song_types_url %>" class="link title">首页</a></li>
+  <li><a href="<%= songs_url %>" class="link">曲谱</a></li>
+  <% if current_manipulatorid %>
+    <% if current_manipulatortype == "用户" %>
+      <li><a href="<%= personal_info_manipulators_url %>" class="link homepage">个人主页</a></li>
+    <% else %>
+      <li><a href="<%= manipulators_url %>" class="link managementpage">管理页面</a></li>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% content_for :main_body do %>
+  <div class="body">
+    <div class="op_nav clearfix">
+      <% if current_manipulatorid %>
+        <%= link_to "创建曲谱类型", new_song_type_path, class: "new-button", style: "float: left;" %>
+      <% end %>
+      <%= form_with url: song_types_path, method: "get" do |f| %>
+          <div class="search_block">
+            <div class="search_content">
+              <%= f.collection_check_boxes :song_type_ids, SongType.all, :id, :名称, checked: @song_type_ids do |b| %>
+                <%= b.label{ b.check_box + b.text } %>
+              <% end %>
+            </div>
+            <div class="icon">
+              <svg class="icon_arrow">
+                <symbol id="icon_arrow" viewBox="0 0 24 24">
+                  <path d="M5.41 7.59L4 9l8 8 8-8-1.41-1.41L12 14.17"></path>
+                </symbol>
+                <use xlink:href="#icon_arrow" fill="#5f6368"></use>
+              </svg>
+            </div>
+          </div>
+          <div style="float: left; margin-left: 10px;">
+            <%= f.label :收藏数, "收藏数: " %>
+            <%= f.select :收藏数, options_for_select([["升序", "ASC"], ["降序", "DESC"]], @collect_sort), include_blank: true %>
+            <%= f.label :发布时间, "发布时间: " %>
+            <%= f.select :发布时间, options_for_select([["升序", "ASC"], ["降序", "DESC"]], @created_sort), include_blank: true %>
+            <%= f.submit "搜索", class: "search-button", style: "margin-left: 5px;" %>
+          </div>
+      <% end %>
+    </div>
+    <% @song_types.each do |song_type| %>
+      <%= render song_type %>
+    <% end %>
+  </div>
+<% end %>
+
+<% content_for :main_javascript do %>
+<%= javascript_include_tag "arrow" %>
+<% end %>

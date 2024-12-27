@@ -1,0 +1,13 @@
+<div id="audio_<%= audio.id %>">
+  <div class="button">
+    <% if !(audio.属性 == nil && current_manipulatorid && current_manipulatorid.id != audio.song.manipulator.id) %>
+      <a href="/assets/<%= audio.音频 %>" download class="download-button">下载</a>
+    <% end %>
+    <% if current_manipulatorid && current_manipulatorid.id == @song.manipulator.id %>
+      <%= button_to "删除", [audio.song, audio], method: :delete, remote: true, class: "delete-button", form: {class: "form-delete"} %>
+    <% end %>
+  </div>
+  <div class="shadow">
+    <%= audio_tag audio.音频, id: "player1", controls: true, loop: true %>
+  </div>
+</div>

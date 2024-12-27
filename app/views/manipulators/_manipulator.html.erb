@@ -1,0 +1,21 @@
+<td>
+    <div class="user_avatar">
+        <%= image_tag manipulator.头像.图片 %>
+    </div>
+</td>
+
+<td>
+    <%= manipulator.名称 %>
+</td>
+
+<td>
+    <%= manipulator.类型 %>
+</td>
+
+<td>
+    <%= manipulator.性别 %>
+</td>
+
+<td>
+    <%= button_to "删除", manipulator, method: :delete, class: "delete", form: { class: "form-delete" } %>
+</td>

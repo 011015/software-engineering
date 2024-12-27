@@ -1,0 +1,46 @@
+<% content_for :manager_stylesheet do %>
+<% end %>
+
+<% content_for :manager_title do %>
+  <li><a href="<%= manipulators_url %>" class="link">操作者信息</a></li>
+  <li><a href="<%= reports_url %>" class="link title">举报信息</a></li>
+  <li><a href="<%= song_types_url %>" class="link">首页</a></li>
+<% end %>
+
+<% content_for :manager_search do %>
+  <div class="search">
+    <%= form_with url: reports_path, method: "get" do |f| %>
+      <%= f.text_field :文本, value: @text, placeholder: "输入举报者" %>
+      <%= f.label :状态, "状态: " %>
+      <%= f.select :状态, options_for_select(["所有", "待审核", "已通过", "已驳回"], @state) %>
+      <%= f.submit "搜索", style: "margin-left: 5px;" %>
+    <% end %>
+  </div>
+<% end %>
+
+<% content_for :manager_table_title do %>
+  <tr>
+  <td>举报原因</td>
+  <td>举报者</td>
+  <td>被举报评论内容</td>
+  <% if @state == "待审核" %>
+    <td>操作</td>
+  <% else %>
+    <td>状态</td>
+  <% end %>
+  </tr>
+<% end %>
+
+<% content_for :manager_table_body do %>
+
+  <% @reports.each do |report| %>
+    <tr id=report-<%= report.id %>>
+      <%= render report %>
+    </tr>
+  <% end %>
+
+<% end %>
+
+<% content_for :manager_javascript do %>
+
+<% end %>
